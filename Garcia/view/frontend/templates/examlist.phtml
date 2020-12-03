@@ -1,0 +1,35 @@
+<?php /** @var \Hiberus\Garcia\Block\GarciaBlock */ ?>
+<h2 class="title"><?= __('List of Exams') ?></h2>
+
+<input type="button" class="showmaxmarkbutton" value="Show max mark"/>
+
+<ul class="exam-list">
+    <?php foreach($block->getExams() as $exam): ?>
+        <li class="exam">
+            <div>
+                <?= $escaper->escapeHtml($exam->getFirstname())?>
+                <?= $escaper->escapeHtml($exam->getLastname())?>
+                <input type="button" class="hidemarkbutton" value="Hide mark"/>
+            </div>
+            <div class="exam-mark" style="color:<?= $block->getColor($exam)?>">
+                <div >Mark: <?= $escaper->escapeHtml($exam->getMark())?></div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+<div class="markaverage">Average Mark: <?=$escaper->escapeHtml($block->getMarksAverage())?></div>
+
+<div><?= __('Total number of students: %1',[$escaper->escapeHtml($block->getNumberOfStudents())])?></div>
+
+<script type="text/x-magento-init">
+{
+    ".exam": {
+        "Hiberus_Garcia/js/hidemarks-garcia": {}
+    },
+
+    ".showmaxmarkbutton": {
+        "Hiberus_Garcia/js/showmaxmark-garcia": {"maxmark":"<?= $block->getMaxMark()?>"}
+    }
+}
+</script>

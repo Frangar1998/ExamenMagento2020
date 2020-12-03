@@ -1,0 +1,55 @@
+@margin-left-primary:20px;
+
+.title {
+    color: darkgray;
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .title {
+        color: darkslateblue;
+    }
+}
+
+.exam {
+    list-style-type: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.exam:nth-child(odd) {
+    margin-left: @margin-left-primary;
+    background-color: lightblue;
+}
+
+.exam:nth-child(even) {
+    background-color: lightgreen;
+}
+
+.exam-mark {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.hidemarkbutton {
+    background-color: lightgray;
+    border-radius: 10px;
+    border-style: solid;
+    box-shadow: 2px 2px grey ;
+}
+
+.hidemarkbutton:hover {
+    background-color: rgb(160, 160, 160);
+}
+
+.markaverage {
+    font-size: 20px;
+}
+
+.exam:nth-child(-n+3){
+    border: 2px solid black;
+}
+
+.showmaxmarkbutton {
+    margin: 10px;
+}

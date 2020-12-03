@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Hiberus_Garcia::garcia" title="Hiberus Examen" translate="title" module="Hiberus_Garcia" sortOrder="999" resource="Hiberus_Garcia::garcia"/>
+        <add id="Hiberus_Garcia::garcia_config" title="Configuration" translate="title" module="Hiberus_Garcia" sortOrder="10" parent="Hiberus_Garcia::garcia" action="admin/system_config/edit/section/hiberus_garcia/" resource="Hiberus_Garcia::config"/>
+    </menu>
+</config>

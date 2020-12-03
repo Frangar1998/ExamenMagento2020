@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Preference for Reverse Dependency -->
+    <preference for="Hiberus\Garcia\Api\Data\ExamInterface" type="Hiberus\Garcia\Model\Exam"/>
+    <preference for="Hiberus\Garcia\Api\ExamRepositoryInterface" type="Hiberus\Garcia\Model\ExamRepository"/>
+    <preference for="Hiberus\Garcia\Api\Data\ExamSearchResultsInterface" type="Hiberus\Garcia\Model\ExamSearchResults" />
+
+    <!-- Register the Abstract Repositories -->
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Hiberus\Garcia\Api\ExamInterface" xsi:type="string">Hiberus\Garcia\Api\ExamRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Hiberus\Garcia\Api\Data\ExamInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">hiberus_exam</item>
+                    <item name="identifierField" xsi:type="string">id_exam</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Register the hydrator strategy for our entities -->
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Hiberus\Garcia\Api\Data\ExamInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Hiberus\Garcia\Api\ExamRepositoryInterface">
+        <plugin name="hiberus-garcia-plugin" type="Hiberus\Garcia\Plugin\PluginMark" />
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="hiberus:garcia" xsi:type="object">Hiberus\Garcia\Console\Command\ShowExamsCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Hiberus\Garcia\Logger\GarciaDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/hiberus_garcia.log</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Hiberus\Garcia\Logger\Monolog" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Hiberus\Garcia\Logger\GarciaDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Hiberus\Garcia\Block\GarciaBlock">
+        <arguments>
+            <argument name="logger" xsi:type="object">Hiberus\Garcia\Logger\Monolog</argument>
+        </arguments>
+    </type>
+</config>
